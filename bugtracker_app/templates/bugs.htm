@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bugs, Bugs, Bugs</title>
+</head>
+<body>
+    <h1> {{ data.title }} </h1>
+    <a href='/user/{{data.author.id}}'> Filed by: {{ data.filed_by }} </a>
+    <p>Filed at: {{ data.time_filed }}</p>
+    <p>Bug info: {{ data.description }}</p>
+    <p>Ticket Status: {{ data.ticket_status }}</p>
+    <a href="/">Home</a>
+</body>
+</html>

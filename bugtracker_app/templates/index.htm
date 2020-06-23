@@ -8,6 +8,14 @@
 <body>
     <h1>🐝Qu33n B's Bug Tracker App🐝</h1>
 
+    <ul>
+        {% for item in data %}
+            <li>
+                <a href="/bug/{{item.id}}">{{ item.title }}</a>
+            </li>
+            <br>
+        {% endfor %}
+    </ul>
     
 </body>
 </html>

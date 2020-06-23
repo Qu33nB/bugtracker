@@ -2,15 +2,14 @@ from django.shortcuts import render, reverse, HttpResponseRedirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 
-from bugtracker_app.models import CustomUser
+from bugtracker_app.models import CustomUser, BugTicket
 from bugtracker_app.forms import LogInForm, AddUserForm, BugTicketForm
-from bugtracker_project import settings
 
 # Create your views here.
 @login_required
 def index(request):
-    info = settings.AUTH_USER_MODEL
-    return render(request, 'index.htm', {'info': info})
+    data = BugTicket.objects.all()
+    return render(request, 'index.htm', {'data': data})
 
 def loginview(request):
     html = 'generic_form.htm'
@@ -53,3 +52,56 @@ def adduser(request):
 
     form = AddUserForm()
     return render(request, html, {'form': form})
+
+
+@login_required
+def addbug(request):
+    html = 'generic_form.htm'
+
+    if request.method == 'POST':
+        form = BugTicketForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            bug = BugTicket.objects.create(
+                title=data['title'],
+                description=data['description'],
+                filed_by=request.user,
+            )
+            return HttpResponseRedirect(reverse('home'))
+
+    form = BugTicketForm()
+    return render(request, html, {'form': form})
+
+
+def bug_edit(request, id):
+    bug = BugTicket.objects.get(id=id)
+    if request.method == 'POST':
+        form = BugTicketForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            bug.title = data['title']
+            bug.description = data['description']
+            bug.ticket_status = data['ticket_status']
+            bug.save()
+            return HttpResponseRedirect()
+
+    form = BugTicketForm(initial={
+        'title': bug.title,
+        'description': bug.description
+    })
+    return render(request, 'generic_form.htm', {'form': form})
+
+
+def bugs(request, id):
+    data = BugTicket.objects.get(id=id)
+    return render(request, 'bugs.htm', {'data': data})
+
+
+def user_info(request, id):
+    person = CustomUser.objects.get(id=id)
+    assigned = BugTicket.objects.filter(assigned_user=person)
+    filed = BugTicket.objects.filter(filed_by=person)
+    completed = BugTicket.objects.filter(completed_by=person)
+    return render(request, 'user.htm', 
+                    {'user': person, 'assigned': assigned,
+                    'filed': filed, 'completed': completed})

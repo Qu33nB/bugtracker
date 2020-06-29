@@ -73,30 +73,25 @@ def addbug(request):
     return render(request, html, {'form': form})
 
 
+@login_required
 def bug_edit(request, id):
     bug = BugTicket.objects.get(id=id)
     if request.method == 'POST':
-        form = BugTicketForm(request.POST)
-        if form.is_valid():
-            data = form.cleaned_data
-            bug.title = data['title']
-            bug.description = data['description']
-            bug.ticket_status = data['ticket_status']
-            bug.save()
-            return HttpResponseRedirect()
+        form = BugTicketForm(request.POST, instance=bug)
+        form.save()
+        return HttpResponseRedirect(reverse('bug', args=(id,)))
 
-    form = BugTicketForm(initial={
-        'title': bug.title,
-        'description': bug.description
-    })
+    form = BugTicketForm(instance=bug)
     return render(request, 'generic_form.htm', {'form': form})
 
 
+@login_required
 def bugs(request, id):
     data = BugTicket.objects.get(id=id)
     return render(request, 'bugs.htm', {'data': data})
 
 
+@login_required
 def user_info(request, id):
     person = CustomUser.objects.get(id=id)
     assigned = BugTicket.objects.filter(assigned_user=person)

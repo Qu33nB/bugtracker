@@ -1,5 +1,5 @@
 from django import forms
-from bugtracker_app.models import CustomUser
+from bugtracker_app.models import CustomUser, BugTicket
 
 class LogInForm(forms.Form):
     username = forms.CharField(max_length=50)
@@ -17,9 +17,11 @@ STATUS_CHOICES = [
     ('INVALID', 'Invalid'),
 ]
 
-class BugTicketForm(forms.Form):
-    title = forms.CharField(max_length=50)
-    description = forms.CharField(max_length=50)
-
-    def __str__(self):
-        return self.title
+class BugTicketForm(forms.ModelForm):
+    class Meta:
+        model = BugTicket
+        fields = [
+            'title',
+            'description',
+            'ticket_status',
+        ]

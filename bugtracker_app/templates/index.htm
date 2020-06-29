@@ -8,14 +8,35 @@
 <body>
     <h1>🐝Qu33n B's Bug Tracker App🐝</h1>
 
-    <ul>
-        {% for item in data %}
+    {% for item in data %}
+    
+        <ul>
             <li>
                 <a href="/bug/{{item.id}}">{{ item.title }}</a>
             </li>
             <br>
+        </ul>
         {% endfor %}
-    </ul>
     
+    <p>
+        <a href="/addbug/">
+            <button>Add new bug</button>
+        </a>
+    </p>
+    <p>
+        <a href="/adduser/">
+            <button>Add new user</button>
+        </a>
+    </p>
+    <!-- <p>
+        <a href="/addbug/">
+            <button>Add new bug</button>
+        </a>
+    </p> -->
+    <p>
+        <a href="/logout/">
+            <button>Sign out of the bug tracker!</button>
+        </a>
+    </p>
 </body>
 </html>

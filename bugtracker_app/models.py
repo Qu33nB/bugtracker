@@ -15,7 +15,7 @@ class CustomUser(AbstractUser):
 class BugTicket(models.Model):
     title = models.CharField(max_length=50)
     time_filed = models.DateTimeField(default=timezone.now)
-    description = models.CharField(max_length=50)
+    description = models.TextField()
     filed_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='filed_by')
     STATUS_CHOICES = [
         ('NEW', 'New'),

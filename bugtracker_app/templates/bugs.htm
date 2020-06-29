@@ -7,10 +7,11 @@
 </head>
 <body>
     <h1> {{ data.title }} </h1>
-    <a href='/user/{{data.author.id}}'> Filed by: {{ data.filed_by }} </a>
+    <p> Filed by: <a href='/user/{{data.filed_by.id}}'> {{ data.filed_by }} </a></p>
     <p>Filed at: {{ data.time_filed }}</p>
     <p>Bug info: {{ data.description }}</p>
     <p>Ticket Status: {{ data.ticket_status }}</p>
-    <a href="/">Home</a>
+    <button><a href="/">Home</a></button>
+    <button><a href="/editbug/{{data.id}}">Edit bug</a></button>
 </body>
 </html>

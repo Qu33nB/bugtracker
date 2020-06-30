@@ -106,7 +106,7 @@ def user_info(request, id):
 @login_required
 def in_progress_bug(request, id):
     bug = BugTicket.objects.get(id=id)
-    bug.ticket_status = 'In Progress'
+    bug.ticket_status = 'IN PROGRESS'
     bug.completed_by = None
     bug.assigned_user = request.user
     bug.save()
@@ -116,7 +116,7 @@ def in_progress_bug(request, id):
 @login_required
 def completed_bug(request, id):
     bug = BugTicket.objects.get(id=id)
-    bug.ticket_status = 'Done'
+    bug.ticket_status = 'DONE'
     bug.completed_by = request.user
     bug.assigned_user = None
     bug.save()
@@ -126,7 +126,7 @@ def completed_bug(request, id):
 @login_required
 def invalid_bug(request, id):
     bug = BugTicket.objects.get(id=id)
-    bug.ticket_status = 'Invalid'
+    bug.ticket_status = 'INVALID'
     bug.completed_by = None
     bug.assigned_user = None
     bug.save()

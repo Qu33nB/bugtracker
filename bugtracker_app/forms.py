@@ -23,5 +23,4 @@ class BugTicketForm(forms.ModelForm):
         fields = [
             'title',
             'description',
-            'ticket_status',
         ]

@@ -10,9 +10,46 @@
 
     <h2>All Bugs</h2>
 
+    <h2>Filed By Tickets</h2>
+    {% for item in filed %}
+        <ul> 
+            <li>
+                <a href="/bug/{{item.id}}">{{ item.title }}</a>
+            </li>
+            <br>
+        </ul>
+        {% endfor %}
+
+        <h2>Assigned Tickets</h2>
+        {% for item in assigned %}
+        <ul> 
+            <li>
+                <a href="/bug/{{item.id}}">{{ item.title }}</a>
+            </li>
+            <br>
+        </ul>
+         {% endfor %}
+
+         <h2>Completed Tickets</h2>
+         {% for item in completed %}
+            <ul> 
+            <li>
+                <a href="/bug/{{item.id}}">{{ item.title }}</a>
+            </li>
+            <br>
+        </ul>
+        {% endfor %}
+
+<p>
     <a href="/addbug/">
         <button>Add new bug</button>
     </a>
+</p>
+<p>
+    <a href="/">
+        <button>Return home!!!</button>
+    </a>
+</p>
 
 </body>
 </html>

@@ -30,6 +30,7 @@ def loginview(request):
     return render(request, html, {'form': form})
 
 
+@login_required
 def logoutview(request):
     logout(request)
     return HttpResponseRedirect(reverse('home'))
@@ -100,3 +101,33 @@ def user_info(request, id):
     return render(request, 'user.htm', 
                     {'user': person, 'assigned': assigned,
                     'filed': filed, 'completed': completed})
+
+
+@login_required
+def in_progress_bug(request, id):
+    bug = BugTicket.objects.get(id=id)
+    bug.ticket_status = 'In Progress'
+    bug.completed_by = None
+    bug.assigned_user = request.user
+    bug.save()
+    return HttpResponseRedirect(reverse('bug', args=(id,)))
+
+
+@login_required
+def completed_bug(request, id):
+    bug = BugTicket.objects.get(id=id)
+    bug.ticket_status = 'Done'
+    bug.completed_by = request.user
+    bug.assigned_user = None
+    bug.save()
+    return HttpResponseRedirect(reverse('bug', args=(id,)))
+
+
+@login_required
+def invalid_bug(request, id):
+    bug = BugTicket.objects.get(id=id)
+    bug.ticket_status = 'Invalid'
+    bug.completed_by = None
+    bug.assigned_user = None
+    bug.save()
+    return HttpResponseRedirect(reverse('bug', args=(id,)))

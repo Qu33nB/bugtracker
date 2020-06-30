@@ -10,4 +10,7 @@ urlpatterns = [
     path('user/<int:id>/', views.user_info, name='user'),
     path('bug/<int:id>/', views.bugs, name='bug'),
     path('editbug/<int:id>/', views.bug_edit, name='editbug'),
+    path('inprogress/<int:id>/', views.in_progress_bug, name='inprogress'),
+    path('completed/<int:id>/', views.completed_bug, name='completed'),
+    path('invalid/<int:id>/', views.invalid_bug, name='invalid'),
 ]

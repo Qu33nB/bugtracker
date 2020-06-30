@@ -8,15 +8,53 @@
 <body>
     <h1>🐝Qu33n B's Bug Tracker App🐝</h1>
 
+    <h2>New Tickets</h2>
     {% for item in data %}
-    
-        <ul>
+    {% if item.ticket_status == 'NEW' %}
+        <ul> 
             <li>
                 <a href="/bug/{{item.id}}">{{ item.title }}</a>
             </li>
             <br>
         </ul>
+        {% endif %}
         {% endfor %}
+
+        <h2>In Progress Tickets</h2>
+        {% for item in data %}
+    {% if item.ticket_status == 'IN PROGRESS' %}
+        <ul> 
+            <li>
+                <a href="/bug/{{item.id}}">{{ item.title }}</a>
+            </li>
+            <br>
+        </ul>
+        {% endif %}
+         {% endfor %}
+
+         <h2>Completed Tickets</h2>
+         {% for item in data %}
+        {% if item.ticket_status == 'DONE' %}
+            <ul> 
+            <li>
+                <a href="/bug/{{item.id}}">{{ item.title }}</a>
+            </li>
+            <br>
+        </ul>
+        {% endif %}
+        {% endfor %}
+
+        <h2>Invalid Tickets</h2>
+        {% for item in data %}
+    {% if item.ticket_status == 'INVALID' %}
+        <ul> 
+            <li>
+                <a href="/bug/{{item.id}}">{{ item.title }}</a>
+            </li>
+            <br>
+        </ul>
+        {% endif %}
+    {% endfor %}
     
     <p>
         <a href="/addbug/">
@@ -28,11 +66,6 @@
             <button>Add new user</button>
         </a>
     </p>
-    <!-- <p>
-        <a href="/addbug/">
-            <button>Add new bug</button>
-        </a>
-    </p> -->
     <p>
         <a href="/logout/">
             <button>Sign out of the bug tracker!</button>

@@ -13,5 +13,8 @@
     <p>Ticket Status: {{ data.ticket_status }}</p>
     <button><a href="/">Home</a></button>
     <button><a href="/editbug/{{data.id}}">Edit bug</a></button>
+    <button><a href="/inprogress/{{data.id}}">Mark In Progress</a></button>
+    <button><a href="/completed/{{data.id}}">Mark Completed</a></button>
+    <button><a href="/invalid/{{data.id}}">Mark Invalid</a></button>
 </body>
 </html>
